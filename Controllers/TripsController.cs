@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using netcoreReactTrips.Data;
+using System;
 
 namespace netcoreReactTrips.Controllers {
     [Route("api/[controller]")]
@@ -15,8 +16,13 @@ namespace netcoreReactTrips.Controllers {
         // [HttpGet("GetTrips")]
         [HttpGet("[action]")]
         public IActionResult GetTrips(){
-            var allTrips = _service.GetAllTrips();
-            return Ok(allTrips);
+            try{
+                // throw new Exception();
+                var allTrips = _service.GetAllTrips();
+               return Ok(allTrips);
+            }catch(Exception ex){
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("SingleTrip/{id}")]
